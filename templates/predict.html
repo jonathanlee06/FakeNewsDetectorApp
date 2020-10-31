@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html >
+<!--From https://codepen.io/frytyler/pen/EGdtg-->
+<head>
+  <meta charset="UTF-8">
+  <title>Fake News Detection</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> -->
+<!-- <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}"> -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  
+</head>
+
+<body>
+  <header style="padding: 30px; font-size: 35px;">
+    <h1><strong>Fake News Detector Predict Page</strong></h1>
+  </header>
+  <section style="display: -webkit-flex; display: flex;">
+    <form action="{{ url_for('predict')}}" method="POST" style="padding-left: 30px;">
+    	<input type="text" name="news" placeholder="Enter the news url" value="{{ url_input }}" required="required" style="border-radius: 50px; border: 1px solid #aaa; margin-bottom: 10px; padding: 10px; width: 700px;"/><br>
+    </form>
+  </section>
+  <section style="display: -webkit-flex; display: flex;">
+    <div class="result" style="border-radius: 20px; border: 1px solid #aaa; margin-top: 30px; margin-left: 30px; padding: 20px; width: 700px; height: 50%">
+      <h2>Based on our classifier result</h2><br><br>
+      <p style="font-size: 20px;">This news is <strong>{{ prediction_text }}</strong></p>
+    </div>  
+  </section>
+  <section style="display: -webkit-flex; display: flex;">
+    <form action="/" method="POST" style="padding-left: 30px; padding-top: 30px;">
+    	<button type="submit" class="btn btn-primary btn-block btn-large" style="border-radius: 50px; padding: 10px;">Back to Homepage</button>
+    </form>
+  </section>
+ <!-- <div class="login" style="margin: 0 auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" align="center">
+	<h1 style="text-align: center;">Fake News Detector Predict Page</h1>
+
+     <!-- Main Input For Receiving Query to our ML -->
+    <!-- <form action="{{ url_for('predict')}}" method="POST">
+    	<input type="text" name="news" placeholder="Enter the news url" value="{{ url_input }}" required="required" style="border-radius: 50px; border: 1px solid #aaa; margin-bottom: 10px; padding: 10px; width: 700px;"/><br>
+        <button type="submit" class="btn btn-primary btn-block btn-large" style="border-radius: 50px; padding: 10px;">Predict</button>
+
+    </form>
+
+   <br>
+   <br>
+   {{ prediction_text }}
+   <br>
+   <br>
+   {{ url_input }} -->
+
+ <!-- </div> -->
+
+
+</body>
+</html>
