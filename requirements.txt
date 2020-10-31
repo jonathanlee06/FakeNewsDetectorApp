@@ -5,3 +5,9 @@ flask-cors
 newspaper3k
 sklearn
 nltk
+matplotlib
+scikit-plot
+
+flask-login
+flask-sqlalchemy
+Werkzeug

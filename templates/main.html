@@ -1,38 +1,70 @@
 <!DOCTYPE html>
 <html >
-<!--From https://codepen.io/frytyler/pen/EGdtg-->
 <head>
   <meta charset="UTF-8">
-  <title>Fake News Detection</title>
+  <title>Fake News Detector App</title>
   <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-<!-- <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}"> -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
-<!-- JS, Popper.js, and jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  <!-- JS, Popper.js, and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
   
 </head>
 
 <body>
+
+  <ul class="nav justify-content-end">
+    <li class="nav-item">
+      <a class="nav-link" href="{{url_for('login') }}">Login</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{url_for('register') }}">Register</a>
+    </li>
+  </ul>
+
  <div class="login" style="margin: 0 auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" align="center">
-	<h1 style="text-align: center;">Fake News Detector</h1>
+	<h1 style="text-align: center; padding-bottom: 2rem;">Fake News Detector</h1>
 
      <!-- Main Input For Receiving Query to our ML -->
-    <form action="{{ url_for('predict')}}"method="POST">
-    	<input type="text" name="news" placeholder="Enter the news url" required="required" style="border-radius: 50px; border: 1px solid #aaa; margin-bottom: 10px; padding: 10px; width: 700px;"/><br>
-        <button type="submit" class="btn btn-primary btn-block btn-large" style="border-radius: 50px; padding: 10px;">Predict</button>
+  <form action="{{ url_for('predict')}}"method="POST">
+    <div class="form-group">
+      <input class="form-control" type="text" name="news" placeholder="Enter the news url" required="required" style="height: 20%; border-radius: 40px; border: 1px solid #aaa; padding: 10px; width: 100%;"/><br>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary btn-block btn-large" style="border-radius: 50px; padding: 10px;">Check</button>
+    </div>
 
-    </form>
+  </form>
 
-   <br>
-   <br>
+  <br>
+  <br>
+
+  <div class="container">
+    <div class="card">
+      <div class="card-body">
+        <div class="col-md-12">
+          <p>
+            <a href="{{l2[0]}}"> {{ l1[0]}} </a><br><br>
+              <a href="{{l2[1]}}"> {{l1[1] }} </a><br><br>
+              <a href="{{l2[2]}}"> {{l1[2] }} </a><br><br>
+              <a href="{{l2[3]}}"> {{l1[3] }} </a><br><br>
+              <a href="{{l2[4]}}">{{ l1[4] }} </a><br>    <br>  
+              <a href="{{l2[5]}}"> {{l1[5] }} </a><br><br>
+              <a href="{{l2[6]}}"> {{l1[6] }} </a><br><br>
+              <a href="{{l2[7]}}">{{ l1[7] }} </a><br>    <br>  
+            
+            </p>
+        </div>
+      </div>
+    </div>
+  </div>
    
 
  </div>
