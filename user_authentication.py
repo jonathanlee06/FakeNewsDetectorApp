@@ -3,7 +3,7 @@ from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager
  
-login = LoginManager()
+loginManager = LoginManager()
 db = SQLAlchemy()
  
 class UserModel(UserMixin, db.Model):
@@ -21,6 +21,6 @@ class UserModel(UserMixin, db.Model):
         return check_password_hash(self.password_hash,password)
  
  
-@login.user_loader
+@loginManager.user_loader
 def load_user(id):
     return UserModel.query.get(int(id))

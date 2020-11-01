@@ -23,13 +23,13 @@
     <div class="container">
         <div class="card" style="width: 40rem; margin-top: 20rem;">
             <div class="card-body">
-                <form action="" method="post">
+                <form action="/login" method="POST">
                     <h5 class="card-title"><strong>Login</strong></h5>
                     <p>Email</p>
                     <input type="email" class="form-control" name="email" required><br>
                     <p>Password</p>
                     <input type="password" class="form-control" name="password" required><br>
-                    <button type="submit" value="Login" class="btn btn-primary">Login</button><br><br>
+                    <button type="Submit" value="Login" class="btn btn-primary">Login</button><br><br>
                     <p>Dont Have an account? <a href = "{{url_for('register') }}">Register Here</a></p>
                 </form>
             </div>

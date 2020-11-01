@@ -1,32 +1,38 @@
 #Importing the Libraries
 import numpy as np
 import pandas as pd
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect, url_for, Blueprint
 from flask_cors import CORS
-from flask_login import login_required, current_user, login_user, logout_user
+from flask_login import login_required, current_user, login_user, logout_user, LoginManager
+from flask.logging import create_logger
 import os
 import joblib
 import pickle
 import flask
-from user_authentication import UserModel, login, db
+import secrets
+from user_authentication import UserModel, loginManager, db
 import newspaper
 from newspaper import Article
 import urllib
 from newsapi import NewsApiClient 
 newsapi=NewsApiClient(api_key='2aa3ac1960ca48b2a5260ebe34c37e96')
 
+secret = secrets.token_urlsafe(32)
+
+
 #Loading Flask and assigning the model variable
 app = Flask(__name__)
-app.secret_key = "auth"
 CORS(app)
 app=flask.Flask(__name__,template_folder='templates')
+app.secret_key = secret
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///auth.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+log = create_logger(app)
 
 db.init_app(app)
-login.init_app(app)
-login.login_view = 'login'
+loginManager.init_app(app)
+loginManager.login_view = 'login'
 
 @app.before_first_request
 def create_table():
@@ -43,22 +49,20 @@ def main():
 
     return render_template('main.html', l1=l1, l2=l2)   
 
-@app.route('/history')
-@login_required
-def blog():
-    return render_template('history.html')
-
 @app.route('/login', methods = ['POST', 'GET'])
-def user_login():
+def login():
     if current_user.is_authenticated:
         return redirect('/history')
      
-    if request.method == 'POST':
+    if request.method == 'POST' and "email" in request.form:
         email = request.form['email']
         user = UserModel.query.filter_by(email = email).first()
         if user is not None and user.check_password(request.form['password']):
-            login_user(user)
-            return redirect('/history')
+            if login_user(user):
+                log.debug('Logged in user %s', user.email)
+                return redirect(url_for("history"))  
+        else:
+            return render_template('login.html')
      
     return render_template('login.html')
 
@@ -66,7 +70,7 @@ def user_login():
 @app.route('/register', methods=['POST', 'GET'])
 def register():
     if current_user.is_authenticated:
-        return redirect('/blogs')
+        return redirect('/history')
      
     if request.method == 'POST':
         email = request.form['email']
@@ -87,6 +91,11 @@ def register():
 def logout():
     logout_user()
     return redirect('/')
+
+@app.route('/history', methods = ['GET', 'POST'])
+@login_required
+def history():
+    return render_template('history.html')
 
 #Receiving the input url from the user and using Web Scrapping to extract the news content
 @app.route('/predict',methods=['GET','POST'])
