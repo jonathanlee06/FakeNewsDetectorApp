@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 from flask import Flask, request, render_template, redirect, url_for, Blueprint
 from flask_cors import CORS
-from flask_login import login_required, current_user, login_user, logout_user, LoginManager
+from flask_login import login_required, current_user, login_user, logout_user
 from flask.logging import create_logger
 import os
 import joblib
@@ -24,10 +24,10 @@ secret = secrets.token_urlsafe(32)
 app = Flask(__name__)
 CORS(app)
 app=flask.Flask(__name__,template_folder='templates')
-app.secret_key = secret
+app.config['SECRET_KEY'] = secret
 app.config['TEMPLATES_AUTO_RELOAD'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///auth.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 log = create_logger(app)
 
 db.init_app(app)
@@ -49,23 +49,28 @@ def main():
 
     return render_template('main.html', l1=l1, l2=l2)   
 
-@app.route('/login', methods = ['POST', 'GET'])
+@app.route('/login')
 def login():
+    return render_template('login.html')
+
+@app.route('/login', methods = ['POST'])
+def login_post():
     if current_user.is_authenticated:
         return redirect('/history')
      
-    if request.method == 'POST' and "email" in request.form:
-        email = request.form['email']
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
         user = UserModel.query.filter_by(email = email).first()
-        if user is not None and user.check_password(request.form['password']):
-            if login_user(user):
-                log.debug('Logged in user %s', user.email)
-                return redirect(url_for("history"))  
-        else:
-            return render_template('login.html')
-     
-    return render_template('login.html')
 
+        if not user and not user.check_password(user.password, password):
+            return redirect(url_for('login'))
+            # return redirect(url_for('history')) 
+       
+        login_user(user)
+        print("Email is here " + email) 
+     
+    return redirect(url_for('history'))
 
 @app.route('/register', methods=['POST', 'GET'])
 def register():
@@ -73,18 +78,26 @@ def register():
         return redirect('/history')
      
     if request.method == 'POST':
-        email = request.form['email']
-        username = request.form['username']
-        password = request.form['password']
+
+        # email = request.form['email']
+        # username = request.form['username']
+        # password = request.form['password']
+
+        email = request.form.get('email')
+        username = request.form.get('username')
+        password = request.form.get('password')
  
-        if UserModel.query.filter_by(email=email):
-            return ('Email already Present')
+        if UserModel.query.filter_by(email=email).first():
+            # return ('Email already Present')
+            return redirect(url_for('register'))
+        else:
+            user = UserModel(email=email, username=username)
+            user.set_password(password)
+            db.session.add(user)
+            db.session.commit()
+            return redirect(url_for('login'))
              
-        user = UserModel(email=email, username=username)
-        user.set_password(password)
-        db.session.add(user)
-        db.session.commit()
-        return redirect('/login')
+        
     return render_template('register.html')
 
 @app.route('/logout')
