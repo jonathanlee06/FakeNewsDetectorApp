@@ -18,12 +18,12 @@ def plot_cmat(yte, ypred):
     plt.show()
 
 # Import dataset for training using Pandas
-news = pd.read_csv('datasets/train.csv')
+news = pd.read_csv('datasets/data.csv')
 text = news['text'].astype('U')
 label = news['label'].astype('U')
 
 # Splitting the dataset into test and train
-text_train, text_test, label_train, label_test = train_test_split(text, label, test_size=0.2, random_state=5)
+text_train, text_test, label_train, label_test = train_test_split(text, label, test_size=0.3, random_state=5)
 
 # Insert spliitted data into TfidfVectorizer and transform shape
 vectorizer = TfidfVectorizer(stop_words='english', max_df=0.7)
@@ -34,7 +34,7 @@ filename_vectorizer = 'TfidfVectorizer.sav'
 pickle.dump(vectorizer, open(filename_vectorizer, 'wb')) # Saving model
 
 # Initialize Classifier
-classifier = PassiveAggressiveClassifier(max_iter=100)
+classifier = PassiveAggressiveClassifier(max_iter=100, warm_start=True)
 
 classifier.fit(transformed_text_train, label_train)
 

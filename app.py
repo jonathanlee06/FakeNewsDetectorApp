@@ -119,7 +119,9 @@ def predict():
     article.download()
     article.parse()
     article.nlp()
+    news_title = article.title
     news = article.text
+    #news = news_title + ' ' + news_text
 
     news_to_predict = pd.Series(np.array([news]))
 
@@ -132,10 +134,13 @@ def predict():
     if (pred_outcome == "0"):
         outcome = "True"
     else:
-        outcome = "False"
+        if (pred_outcome == "REAL"):
+            outcome = "True"
+        else:
+            outcome = "False"
     
     # return render_template('predict.html', prediction_text='{}'.format(pred[0]), url_input=url)
-    return render_template('predict.html', prediction_text=outcome, url_input=url)
+    return render_template('predict.html', prediction_text=outcome, url_input=url, news=news)
     # return article.summary
 
 if __name__=="__main__":

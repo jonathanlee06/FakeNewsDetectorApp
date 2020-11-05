@@ -13,6 +13,43 @@ body {
 	color: #fff;
 	font-size: 18px;
 	text-align:center;
-	letter-spacing:1.2px;
 
+}
+
+/* .input-container {
+	position: relative;
+	font-size: 16px;
+	height: 20%; 
+	border-radius: 40px; 
+	border: 1px solid #aaa; 
+	padding: 1rem; 
+	width: 100%;
+}
+
+.input-container i{
+	display: inline-block;
+	min-width: 40px;
+	width: 1%;
+} */
+
+.form-group .url-box {
+	font-size: 20px;
+	height: 20%; 
+	border-radius: 40px; 
+	border: 1px solid #aaa; 
+	padding: 1rem; 
+	width: 100%;
+	text-indent: 10px;
+}
+
+/* .input-group:focus,
+.input-group:hover {
+	border: 0;
+	box-shadow: 0 0px 5px rgba(0,0,0,0.3);
+} */
+
+.form-group .url-box:focus,
+.form-group .url-box:hover {
+	border: 0;
+	box-shadow: 0 0px 5px rgba(0,0,0,0.3);
 }
