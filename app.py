@@ -134,7 +134,7 @@ def predict():
     if (pred_outcome == "0"):
         outcome = "True"
     else:
-        if (pred_outcome == "REAL"):
+        if (pred_outcome == "Valid"):
             outcome = "True"
         else:
             outcome = "False"

@@ -18,7 +18,7 @@ def plot_cmat(yte, ypred):
     plt.show()
 
 # Import dataset for training using Pandas
-news = pd.read_csv('datasets/data.csv')
+news = pd.read_csv('datasets/train.csv')
 text = news['text'].astype('U')
 label = news['label'].astype('U')
 
