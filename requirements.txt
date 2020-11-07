@@ -10,4 +10,5 @@ scikit-plot
 
 flask-login
 flask-sqlalchemy
+flask-mysqldb
 Werkzeug
