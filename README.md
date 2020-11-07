@@ -1,8 +1,8 @@
 # Fake News Detector App
-Fake News Detector App is a Fake News Detection website developed by Jonathan Lee as part of the Final Year Project (FYP). The aim of the application is to help reduce human contact during check-in process at campus.
+Fake News Detector App is a Fake News Detection website developed by Jonathan Lee as part of the Final Year Project (FYP). The aim of this project is to create a simple web application to help ease the process of verifying the validity of a news article online
 
 ## Overview
-With the rapid growing rate of information over the internet, the topic of fake news detection on social media has recently attracted tremendous attention. The basic countermeasure of comparing websites against a list of labeled fake news sources is inflexible, and so a machine learning approach is desirable. This project aims to use Natural Language Processing (NLP) and Passive Agressive Classifier to detect fake news directly, based on the text content of news articles.
+With the rapid growing rate of information over the internet, the topic of fake news detection on social media has recently attracted tremendous attention. The basic countermeasure of comparing websites against a list of labeled fake news sources is inflexible, and so a machine learning approach is desirable. This project aims to use Natural Language Processing (NLP) and Passive Aggressive Classifier to detect fake news directly, based on the text content of news articles.
 
 ## Objectives
 1. To investigate and identify the key features of fake news
