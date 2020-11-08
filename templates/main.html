@@ -21,14 +21,15 @@
 
 <body>
 
-  <ul class="nav justify-content-end">
+  <!-- <ul class="nav justify-content-end">
     <li class="nav-item">
       <a class="nav-link" href="{{url_for('login') }}">Login</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="{{url_for('register') }}">Register</a>
     </li>
-  </ul>
+  </ul> -->
+  {% include 'includes/_navbar.html' %}
 
  <div style="margin: 0 auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" align="center">
 	<h1 style="text-align: center; padding-bottom: 2rem;">Fake News Detector</h1>
