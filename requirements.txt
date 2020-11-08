@@ -11,4 +11,5 @@ scikit-plot
 flask-login
 flask-sqlalchemy
 flask-mysqldb
+flask-wtf
 Werkzeug

@@ -19,16 +19,17 @@
 </head>
 
 <body>
-
     <div class="container">
         <div class="card" style="width: 40rem; margin-top: 20rem;">
             <div class="card-body">
                 <form action="/register" method="POST">
                     <h5 class="card-title"><strong>Register</strong></h5>
+                    {% include 'includes/_messages.html' %}
                     <p>Email</p>
-                    <input type="email" class="form-control" name="email" required><br>
+                    <input type="email" class="form-control" name="email" value="{{ email }}" required><br>
+                    <small id="e_error" class="form-text text-muted text-center"><span class="text-danger">{{ msg }}</span></small>
                     <p>Username</p>
-                    <input type="username" class="form-control" name="username" required><br>
+                    <input type="username" class="form-control" name="username" value="{{ username }}" required><br>
                     <p>Password</p>
                     <input type="password" class="form-control" name="password" required><br>
                     <button type="submit" value="Register" class="btn btn-primary">Register</button><br><br>

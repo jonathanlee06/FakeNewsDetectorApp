@@ -22,7 +22,7 @@
 
     <h2>Welcome to your history</h2>
  
-    <h3>Hi {{ current_user.username }}</h3>
+    <h3>Hi {{ session.username }}</h3>
      
     <a href="{{ url_for('logout')}}">Logout Here</a>
 
