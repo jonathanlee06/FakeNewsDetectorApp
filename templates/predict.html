@@ -15,8 +15,9 @@
 </head>
 
 <body>
+  {% include 'includes/_navbar.html' %}
   <header style="padding: 30px; font-size: 35px;">
-    <h1><strong>Fake News Detector Predict Page</strong></h1>
+    <h1><strong>Prediction Result</strong></h1>
   </header>
   <section style="display: -webkit-flex; display: flex;">
     <form action="{{ url_for('predict')}}" method="POST" style="padding-left: 30px;">

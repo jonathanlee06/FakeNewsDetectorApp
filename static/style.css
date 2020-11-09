@@ -42,6 +42,14 @@ body {
 	text-indent: 10px;
 }
 
+.form-group .predict-btn {
+	font-size: 20px;
+	height: 20%; 
+	border-radius: 40px; 
+	padding: 1rem; 
+	width: 100%;
+}
+
 /* .input-group:focus,
 .input-group:hover {
 	border: 0;

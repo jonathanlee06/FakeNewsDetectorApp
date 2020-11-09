@@ -33,24 +33,33 @@
 
  <div style="margin: 0 auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" align="center">
 	<h1 style="text-align: center; padding-bottom: 2rem;">Fake News Detector</h1>
-
+  {% include 'includes/_messages.html' %}
      <!-- Main Input For Receiving Query to our ML -->
   <form action="{{ url_for('predict')}}"method="POST">
     <!-- <div class="input-container form-control">
       <i class="fa fa-link"></i>
       <input class="url-box" type="text" name="news" placeholder="Enter the news url" required="required"/>
     </div> -->
-    <div class="form-group">
+    <div class="row">
+      <div class="col-xl-9">
+        <div class="form-group">
+          <input class="form-control url-box" type="text" name="news" placeholder="Enter the news url" required="required"/><br>
+        </div>
+      </div>
+      <div class="col-xl-3">
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block btn-large predict-btn">Check</button>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="form-group">
       <input class="form-control url-box" type="text" name="news" placeholder="Enter the news url" required="required"/><br>
     </div>
     <div class="form-group">
       <button type="submit" class="btn btn-primary btn-block btn-large" style="border-radius: 50px; padding: 10px;">Check</button>
-    </div>
+    </div> -->
 
   </form>
-
-  <br>
-  <br>
 
   <div class="container">
     <div class="card">

@@ -90,7 +90,7 @@ def login_post():
                 session['logged_in'] = True
                 session['username'] = account['username']
                 flash('You have successfully logged in!', 'success')
-                return redirect(url_for('history'))
+                return redirect(url_for('main'))
             else:
                 msg = "Invalid Password"
                 return render_template('login.html', msg=msg, email=email)
@@ -98,13 +98,6 @@ def login_post():
             cursor.close()
         else:
             flash('Account with this email address does not exist! Please try again!', 'danger')
-
-        # if user and user.check_password(user.password, password):
-        #     login_user(user)
-        #     print("Email is here " + email) 
-        # else:
-        #     return redirect(url_for('login'))
-        #     # return redirect(url_for('history')) 
      
     return redirect(url_for('login'))
 
@@ -188,32 +181,43 @@ def history():
 def predict():
     url = request.get_data(as_text=True)[5:]
     url = urllib.parse.unquote(url)
-    article = Article(str(url))
-    article.download()
-    article.parse()
-    article.nlp()
-    news_title = article.title
-    news = article.text
-    #news = news_title + ' ' + news_text
 
-    news_to_predict = pd.Series(np.array([news]))
+    if url:
+        article = Article(str(url))
+        article.download()
+        article.parse()
+        article.nlp()
+        news_title = article.title
+        news = article.text
+        #news = news_title + ' ' + news_text
 
-    cleaner = pickle.load(open('TfidfVectorizer.sav', 'rb'))
-    model = pickle.load(open('ClassifierModel.sav', 'rb'))
+        if news:
+            news_to_predict = pd.Series(np.array([news]))
 
-    cleaned_text = cleaner.transform(news_to_predict)
-    pred = model.predict(cleaned_text)
-    pred_outcome = format(pred[0])
-    if (pred_outcome == "0"):
-        outcome = "True"
-    else:
-        if (pred_outcome == "REAL"):
-            outcome = "True"
+            cleaner = pickle.load(open('TfidfVectorizer.sav', 'rb'))
+            model = pickle.load(open('ClassifierModel.sav', 'rb'))
+
+            cleaned_text = cleaner.transform(news_to_predict)
+            pred = model.predict(cleaned_text)
+            pred_outcome = format(pred[0])
+            if (pred_outcome == "0"):
+                outcome = "True"
+            else:
+                if (pred_outcome == "REAL"):
+                    outcome = "True"
+                else:
+                    outcome = "False"
+            
+            # return render_template('predict.html', prediction_text='{}'.format(pred[0]), url_input=url)
+            return render_template('predict.html', prediction_text=pred_outcome, url_input=url, news=news)
         else:
-            outcome = "False"
-    
-    # return render_template('predict.html', prediction_text='{}'.format(pred[0]), url_input=url)
-    return render_template('predict.html', prediction_text=pred_outcome, url_input=url, news=news)
+            flash('Invalid URL! Please try again', 'danger')
+            return redirect(url_for('main'))
+    else:
+        flash('Please enter an URL to predict', 'danger')
+        return redirect(url_for('main'))
+
+    return render_template('predict.html')
     # return article.summary
 
 if __name__=="__main__":
