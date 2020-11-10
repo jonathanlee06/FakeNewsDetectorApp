@@ -18,7 +18,7 @@ def plot_cmat(yte, ypred):
     plt.show()
 
 # Import dataset for training using Pandas
-news = pd.read_csv('datasets/train.csv')
+news = pd.read_csv('datasets/scraped.csv')
 text = news['text'].astype('U')
 label = news['label'].astype('U')
 
@@ -26,7 +26,7 @@ label = news['label'].astype('U')
 text_train, text_test, label_train, label_test = train_test_split(text, label, test_size=0.3, random_state=5)
 
 # Insert spliitted data into TfidfVectorizer and transform shape
-vectorizer = TfidfVectorizer(stop_words='english', max_df=0.7)
+vectorizer = TfidfVectorizer(stop_words='english', max_df=0.7, lowercase=True)
 
 transformed_text_train = vectorizer.fit_transform(text_train)
 transformed_text_test = vectorizer.transform(text_test)

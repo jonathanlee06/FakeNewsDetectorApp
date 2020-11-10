@@ -54,7 +54,8 @@ loginManager.login_view = 'login'
 
 @app.route('/', methods=['GET', 'POST'])
 def main():
-    data = newsapi.get_top_headlines(language='en',country="my", page_size=10)
+    data = newsapi.get_top_headlines(language='en',country="us", category='general', page_size=10)
+    #data = newsapi.get_everything(q='politics', language='en', page_size=10)
     l1=[]
     l2=[]
     for i in data['articles']:
@@ -189,13 +190,15 @@ def predict():
         article.nlp()
         news_title = article.title
         news = article.text
+        news_html = article.html
+        
         #news = news_title + ' ' + news_text
 
-        if news:
+        if article:
             news_to_predict = pd.Series(np.array([news]))
 
-            cleaner = pickle.load(open('TfidfVectorizer.sav', 'rb'))
-            model = pickle.load(open('ClassifierModel.sav', 'rb'))
+            cleaner = pickle.load(open('TfidfVectorizer-new.sav', 'rb'))
+            model = pickle.load(open('ClassifierModel-new.sav', 'rb'))
 
             cleaned_text = cleaner.transform(news_to_predict)
             pred = model.predict(cleaned_text)
