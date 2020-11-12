@@ -108,8 +108,6 @@ def register():
     msg = ''
     email = ''
     username = ''
-    # if current_user.is_authenticated:
-    #     return redirect('/history')
      
     if request.method == 'POST':
 
