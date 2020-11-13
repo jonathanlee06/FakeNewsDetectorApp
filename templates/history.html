@@ -2,13 +2,13 @@
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>Fake News Detector App</title>
+  <title>History - Fake News Detector App</title>
   <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
   <!-- JS, Popper.js, and jQuery -->
@@ -52,7 +52,7 @@
               <th scope="row">{{ his.historyID }}</th>
               <td><a href="{{ his.historyURL }}">{{ his.historyURL }}</a></td>
               <td>{{ his.historyLabel }}</td>
-              <td></td>
+              <td>{{ his.historyDate }}</td>
             </tr>
           {% endfor %}
         </tbody>
@@ -63,6 +63,6 @@
   </div>
 
     
-
+  {% include 'includes/_footer.html' %}
 </body>
 </html>

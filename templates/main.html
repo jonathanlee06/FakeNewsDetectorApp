@@ -8,7 +8,7 @@
   <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
   <!-- JS, Popper.js, and jQuery -->
@@ -21,70 +21,69 @@
 
 <body>
 
-  <!-- <ul class="nav justify-content-end">
-    <li class="nav-item">
-      <a class="nav-link" href="{{url_for('login') }}">Login</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="{{url_for('register') }}">Register</a>
-    </li>
-  </ul> -->
   {% include 'includes/_navbar.html' %}
-
- <div style="margin: 0 auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" align="center">
-	<h1 style="text-align: center; padding-bottom: 2rem;">Fake News Detector</h1>
-  {% include 'includes/_messages.html' %}
-     <!-- Main Input For Receiving Query to our ML -->
-  <form action="{{ url_for('predict')}}"method="POST">
-    <!-- <div class="input-container form-control">
-      <i class="fa fa-link"></i>
-      <input class="url-box" type="text" name="news" placeholder="Enter the news url" required="required"/>
-    </div> -->
-    <div class="row">
-      <div class="col-xl-9">
-        <div class="form-group">
-          <input class="form-control url-box" type="text" name="news" placeholder="Enter the news url" required="required"/><br>
-        </div>
+  <section>
+    <div class="container-fluid" style="padding: 0">
+      {% include 'includes/_messages.html' %}
+    </div>
+    <div class="jumbotron" style="margin-top: 0;">
+      <div class="container">
+        <h1 style="text-align: center; padding-bottom: 2rem;">Fake News Detector</h1>
+          <!-- Main Input For Receiving Query to our ML -->
+          <div class="container">
+            <form action="{{ url_for('predict')}}"method="POST">
+              <div class="row">
+                <!-- <div class="col-xl-9">
+                  <div class="form-group">
+                    <input class="form-control url-box" type="text" name="news" placeholder="Enter the news url" required="required"/><br>
+                  </div>
+                </div>
+                <div class="col-xl-3">
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block btn-large predict-btn">Check</button>
+                  </div>
+                </div> -->
+                <div class="input-group input-group-lg mb-3 rounded-circle">
+                  <input class="form-control url-box" type="text" name="news" placeholder="Enter the news url" required="required"/>
+                  <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary btn-block btn-large predict-btn">Check</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
       </div>
-      <div class="col-xl-3">
-        <div class="form-group">
-          <button type="submit" class="btn btn-primary btn-block btn-large predict-btn">Check</button>
+    </div>
+  
+    <div class="container">
+      <div class="card">
+        <div class="card-body">
+          <div class="col-md-12">
+            <h3>Top News Today</h3><br>
+            <p>
+              <a href="{{l2[0]}}"> {{ l1[0]}} </a><br><br>
+                <a href="{{l2[1]}}"> {{l1[1] }} </a><br><br>
+                <a href="{{l2[2]}}"> {{l1[2] }} </a><br><br>
+                <a href="{{l2[3]}}"> {{l1[3] }} </a><br><br>
+                <a href="{{l2[4]}}">{{ l1[4] }} </a><br>    <br>  
+                <a href="{{l2[5]}}"> {{l1[5] }} </a><br><br>
+                <a href="{{l2[6]}}"> {{l1[6] }} </a><br><br>
+                <a href="{{l2[7]}}">{{ l1[7] }} </a><br>    <br>  
+              
+              </p>
+          </div>
         </div>
       </div>
     </div>
-    <!-- <div class="form-group">
-      <input class="form-control url-box" type="text" name="news" placeholder="Enter the news url" required="required"/><br>
-    </div>
-    <div class="form-group">
-      <button type="submit" class="btn btn-primary btn-block btn-large" style="border-radius: 50px; padding: 10px;">Check</button>
-    </div> -->
+  </section>
+  
 
-  </form>
-
-  <div class="container">
-    <div class="card">
-      <div class="card-body">
-        <div class="col-md-12">
-          <h3>Top News Today</h3><br>
-          <p>
-            <a href="{{l2[0]}}"> {{ l1[0]}} </a><br><br>
-              <a href="{{l2[1]}}"> {{l1[1] }} </a><br><br>
-              <a href="{{l2[2]}}"> {{l1[2] }} </a><br><br>
-              <a href="{{l2[3]}}"> {{l1[3] }} </a><br><br>
-              <a href="{{l2[4]}}">{{ l1[4] }} </a><br>    <br>  
-              <a href="{{l2[5]}}"> {{l1[5] }} </a><br><br>
-              <a href="{{l2[6]}}"> {{l1[6] }} </a><br><br>
-              <a href="{{l2[7]}}">{{ l1[7] }} </a><br>    <br>  
-            
-            </p>
-        </div>
-      </div>
-    </div>
-  </div>
+ <!-- <div style="margin: 0 auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" align="center">
+	
    
 
- </div>
-
+ </div> -->
+ {% include 'includes/_footer.html' %}
 
 </body>
 </html>

@@ -16,27 +16,18 @@ body {
 
 }
 
-/* .input-container {
-	position: relative;
-	font-size: 16px;
-	height: 20%; 
-	border-radius: 40px; 
-	border: 1px solid #aaa; 
-	padding: 1rem; 
-	width: 100%;
+.input-group .url-box {
+	border-radius: 40px;
+	border: 0;
+	height: 20%;
 }
-
-.input-container i{
-	display: inline-block;
-	min-width: 40px;
-	width: 1%;
-} */
 
 .form-group .url-box {
 	font-size: 20px;
 	height: 20%; 
 	border-radius: 40px; 
-	border: 1px solid #aaa; 
+	border: 0;
+	/* border: 1px solid #aaa;  */
 	padding: 1rem; 
 	width: 100%;
 	text-indent: 10px;
@@ -46,7 +37,6 @@ body {
 	font-size: 20px;
 	height: 20%; 
 	border-radius: 40px; 
-	padding: 1rem; 
 	width: 100%;
 }
 
