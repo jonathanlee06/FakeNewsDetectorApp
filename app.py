@@ -90,6 +90,7 @@ def login_post():
             if check_password_hash(password_db,password):
                 session['logged_in'] = True
                 session['username'] = account['username']
+                session['id'] = account['id']
                 flash('You have successfully logged in!', 'success')
                 return redirect(url_for('main'))
             else:
@@ -138,16 +139,6 @@ def register():
             cursor.close()
             flash('You have successfully registered and you are allowed to login', 'success')
             return redirect(url_for('login'))
- 
-        # if UserModel.query.filter_by(email=email).first():
-        #     # return ('Email already Present')
-        #     return redirect(url_for('register'))
-        # else:
-        #     user = UserModel(email=email, username=username)
-        #     user.set_password(password)
-        #     db.session.add(user)
-        #     db.session.commit()
-        #     return redirect(url_for('login'))
              
         
     return render_template('register.html', msg=msg)
@@ -171,9 +162,22 @@ def logout():
 
 @app.route('/history', methods = ['GET', 'POST'])
 @is_logged_in
-# @login_required
 def history():
-    return render_template('history.html')
+    userID = session['id']
+
+    cursor = mysql.connection.cursor()
+    result = cursor.execute('SELECT * FROM history WHERE userID LIKE %s', (userID,)) 
+    history = cursor.fetchall()
+
+    if result:
+        record = True
+        return render_template('history.html', history=history, record=record)
+    else:
+        msg = 'No History Found'
+        return render_template('history.html', msg=msg, record=record)
+
+    cursor.close()
+    
 
 #Receiving the input url from the user and using Web Scrapping to extract the news content
 @app.route('/predict',methods=['GET','POST'])
@@ -208,9 +212,14 @@ def predict():
                     outcome = "True"
                 else:
                     outcome = "False"
+
+            if 'logged_in' in session:
+                userID = session['id']
+                #print(type(userID))
+                saveHistory(userID, url, outcome)
             
             # return render_template('predict.html', prediction_text='{}'.format(pred[0]), url_input=url)
-            return render_template('predict.html', prediction_text=pred_outcome, url_input=url, news=news)
+            return render_template('predict.html', prediction_text=outcome, url_input=url, news=news)
         else:
             flash('Invalid URL! Please try again', 'danger')
             return redirect(url_for('main'))
@@ -220,6 +229,13 @@ def predict():
 
     return render_template('predict.html')
     # return article.summary
+
+def saveHistory(userID, url, outcome):
+    cursor = mysql.connection.cursor()
+    cursor.execute("INSERT INTO history(historyURL, historyLabel, userID) VALUES(%s,%s,%s)", (url, outcome, userID))
+    mysql.connection.commit()
+    cursor.close()
+
 
 if __name__=="__main__":
     port=int(os.environ.get('PORT',5000))

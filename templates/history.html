@@ -8,7 +8,7 @@
   <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
   <!-- JS, Popper.js, and jQuery -->
@@ -19,12 +19,50 @@
 </head>
 
 <body>
+  {% include 'includes/_navbar.html' %}
 
-    <h2>Welcome to your history</h2>
+  <section>
+    <div class="jumbotron">
+      <div class="container">
+        <h1 class="page-title">History</h1>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <!-- <h2>Welcome to your history</h2>
  
     <h3>Hi {{ session.username }}</h3>
      
-    <a href="{{ url_for('logout')}}">Logout Here</a>
+    <a href="{{ url_for('logout')}}">Logout Here</a> -->
+    {% include 'includes/_messages.html' %}
+    {% if record %}
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col" class="align-middle">No.</th>
+            <th scope="col" class="align-middle">History URL</th>
+            <th scope="col" class="align-middle">History Label</th>
+            <th scope="col" class="align-middle">Checked Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for his in history %}
+            <tr>
+              <th scope="row">{{ his.historyID }}</th>
+              <td><a href="{{ his.historyURL }}">{{ his.historyURL }}</a></td>
+              <td>{{ his.historyLabel }}</td>
+              <td></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <h3>History Not Found</h3>
+    {% endif %}
+  </div>
+
+    
 
 </body>
 </html>
