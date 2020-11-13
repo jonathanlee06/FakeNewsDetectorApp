@@ -169,7 +169,7 @@ def history():
     result = cursor.execute('SELECT * FROM history WHERE userID LIKE %s', (userID,)) 
     history = cursor.fetchall()
 
-    if result:
+    if history:
         record = True
         return render_template('history.html', history=history, record=record)
     else:
