@@ -114,7 +114,13 @@ a:hover {
 
 .news-card {
 	border-radius: 20px !important;
-    box-shadow: 0 10px 20px rgba(0,0,0,.1), 0 4px 8px rgba(0,0,0,.06);
+	box-shadow: 0 10px 20px rgba(0,0,0,.1), 0 4px 8px rgba(0,0,0,.06);
+}
+
+.news-card > .card-title {
+	padding-top: 2rem;
+	font-family: 'Montserrat';
+	font-weight: 500;
 }
 
 /* ======================================================
