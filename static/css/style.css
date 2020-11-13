@@ -1,7 +1,7 @@
 html { 
 	width: 100%; 
 	height:100%; 
-	overflow:hidden; 
+	/* overflow:hidden;  */
 	-webkit-text-size-adjust: auto;
 }
 
@@ -54,12 +54,12 @@ a:hover {
 }
 
 .input-group .predict-btn:hover {
-	background-color: #1ae191ff;
+	background-color: #1AE191;
 	border: 0;
 }
 
 .input-group .predict-btn:active {
-	background-color: #1ae191ff;
+	background-color: #1AE191;
 	border: 0;
 }
 
