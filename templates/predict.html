@@ -51,10 +51,28 @@
             <h4>Based on our classifier result</h4>
           </div>
           <div class="card-body">
-            {% if prediction_text == 'True' %}
-              <h1>This news is <strong style="color: #1ae191ff;">{{ prediction_text }} ✅</strong></h1>
+            {% if session.logged_in %}
+              {% if prediction_text == 'True' %}
+                <h1>This news is <strong style="color: #1ae191ff;">{{ prediction_text }} ✅</strong></h1>
+                <form action="/history">
+                  <div class="form-group" style="margin-top: 3rem;">
+                    <button type="submit" class="btn btn-primary view-history-btn">View Your History</button>
+                  </div>
+                </form>
+              {% else %}
+                <h1>This news is <strong style="color: rgb(182, 24, 24);">{{ prediction_text }} ❌</strong></h1>
+                <form action="/history">
+                  <div class="form-group" style="margin-top: 3rem;">
+                    <button type="submit" class="btn btn-primary view-history-btn">View Your History</button>
+                  </div>
+                </form>
+              {% endif %}
             {% else %}
-              <h1>This news is <strong style="color: rgb(182, 24, 24);">{{ prediction_text }} ❌</strong></h1>
+              {% if prediction_text == 'True' %}
+                <h1>This news is <strong style="color: #1ae191ff; font-weight: 600;">{{ prediction_text }} ✅</strong></h1>
+              {% else %}
+                <h1>This news is <strong style="color: rgb(182, 24, 24); font-weight: 600;">{{ prediction_text }} ❌</strong></h1>
+              {% endif %}
             {% endif %}
           </div>
         </div>

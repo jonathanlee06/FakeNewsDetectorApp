@@ -33,35 +33,39 @@
   </section>
 
   <div class="container">
-    <!-- <h2>Welcome to your history</h2>
- 
-    <h3>Hi {{ session.username }}</h3>
-     
-    <a href="{{ url_for('logout')}}">Logout Here</a> -->
     {% include 'includes/_messages.html' %}
     {% if record %}
-      <table class="table">
-        <thead class="thead-dark" style="background-color: rgb(18, 196, 124);">
-          <tr>
-            <th scope="col" class="align-middle">No.</th>
-            <th scope="col" class="align-middle">History URL</th>
-            <th scope="col" class="align-middle">History Label</th>
-            <th scope="col" class="align-middle">Checked Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for his in history %}
+      <div class="table-fixed">
+        <table class="table">
+          <thead class="thead-dark" style="background-color: rgb(18, 196, 124);">
             <tr>
-              <th scope="row">{{ his.historyID }}</th>
-              <td><a href="{{ his.historyURL }}">{{ his.historyURL }}</a></td>
-              <td>{{ his.historyLabel }}</td>
-              <td>{{ his.historyDate }}</td>
+              <th scope="col" class="align-middle">No.</th>
+              <th scope="col" class="align-middle">History URL</th>
+              <th scope="col" class="align-middle">History Label</th>
+              <th scope="col" class="align-middle">Checked Date</th>
             </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {% for his in history %}
+              <tr>
+                <!-- <th scope="row">{{ his.historyID }}</th> -->
+                <th scope="row">{{ loop.index }}</th>
+                <td><a href="{{ his.historyURL }}">{{ his.historyURL }}</a></td>
+                <td>
+                  {% if his.historyLabel == 'True' %}
+                    <strong>{{ his.historyLabel }} ✅</strong>
+                  {% else %}
+                    <strong>{{ his.historyLabel }} ❌</strong>
+                  {% endif %}
+                </td>
+                <td>{{ his.historyDate }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     {% else %}
-      <h3>History Not Found</h3>
+      <h3>No History Available</h3>
     {% endif %}
   </div>
 

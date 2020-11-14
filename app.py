@@ -7,6 +7,7 @@ from flask_login import login_required, current_user, login_user, logout_user
 from flask.logging import create_logger
 from flask_mysqldb import MySQL
 from functools import wraps
+# from urllib import 
 import MySQLdb.cursors
 import re
 import os
@@ -14,11 +15,13 @@ import joblib
 import pickle
 import flask
 import secrets
+import validators
 from user_authentication import UserModel, loginManager, db
 # from db_config import mysql
 from werkzeug.security import generate_password_hash, check_password_hash
 import newspaper
 from newspaper import Article
+# from urllib import request, urlopen, URLError, parse
 import urllib
 from newsapi import NewsApiClient 
 newsapi=NewsApiClient(api_key='2aa3ac1960ca48b2a5260ebe34c37e96')
@@ -94,8 +97,8 @@ def login_post():
                 flash('You have successfully logged in!', 'success')
                 return redirect(url_for('main'))
             else:
-                msg = "Invalid Password"
-                return render_template('login.html', msg=msg, email=email)
+                flash('Account with this email address does not exist! Please try again!', 'danger')
+                return render_template('login.html', email=email)
 
             cursor.close()
         else:
@@ -122,17 +125,14 @@ def register():
         account = cursor.fetchone()
 
         if account:
-            msg = "Email already exists!"
-            return render_template('register.html', msg=msg, email=email, username=username)
-        elif not re.match(r'[^@]+@[^@]+\.[^@]+', email): 
-            msg = 'Invalid email address !'
-            return render_template('register.html', msg=msg)
-        elif not re.match(r'[A-Za-z0-9]+', username): 
-            msg = 'Username must contain only characters and numbers !'
-            return render_template('register.html', msg=msg)
+            flash('Email already exists!', 'danger')
+            return render_template('register.html', email=email, username=username)
+        elif (len(password)<8): 
+            flash('Please use a stronger password', 'danger')
+            return render_template('register.html', email=email, username=username)
         elif not username or not password or not email: 
-            msg = 'Please fill out the form !'
-            return render_template('register.html', msg=msg)
+            flash('Please fill out the form to register!', 'danger')
+            return render_template('register.html')
         else:     
             cursor.execute("INSERT INTO users(email, username, password_hash) VALUES(%s,%s,%s)", (email, username, password_hash))
             mysql.connection.commit()
@@ -166,7 +166,7 @@ def history():
     userID = session['id']
 
     cursor = mysql.connection.cursor()
-    result = cursor.execute('SELECT * FROM history WHERE userID LIKE %s', (userID,)) 
+    result = cursor.execute('SELECT * FROM history WHERE userID LIKE %s ORDER BY historyDate DESC', (userID,)) 
     history = cursor.fetchall()
 
     if history:
@@ -185,7 +185,9 @@ def predict():
     url = request.get_data(as_text=True)[5:]
     url = urllib.parse.unquote(url)
 
-    if url:
+    validate = validators.url(url)
+
+    if validate == True:
         article = Article(str(url))
         article.download()
         article.parse()
@@ -193,8 +195,6 @@ def predict():
         news_title = article.title
         news = article.text
         news_html = article.html
-        
-        #news = news_title + ' ' + news_text
 
         if article:
             news_to_predict = pd.Series(np.array([news]))
@@ -215,10 +215,8 @@ def predict():
 
             if 'logged_in' in session:
                 userID = session['id']
-                #print(type(userID))
                 saveHistory(userID, url, outcome)
             
-            # return render_template('predict.html', prediction_text='{}'.format(pred[0]), url_input=url)
             return render_template('predict.html', prediction_text=outcome, url_input=url, news=news)
         else:
             flash('Invalid URL! Please try again', 'danger')
@@ -228,7 +226,6 @@ def predict():
         return redirect(url_for('main'))
 
     return render_template('predict.html')
-    # return article.summary
 
 def saveHistory(userID, url, outcome):
     cursor = mysql.connection.cursor()
