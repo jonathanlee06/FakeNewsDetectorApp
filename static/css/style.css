@@ -9,10 +9,10 @@ body {
 	font-family: 'Montserrat', sans-serif ; 
 	width: 100%;
 	height:100%;
-	background: #092756;
+	/* background: #092756;
 	color: #fff;
 	font-size: 18px;
-	text-align:center;
+	text-align:center; */
 
 }
 
@@ -29,17 +29,39 @@ body {
 	margin: 0 auto;
 }
 
-.nav-items .active {
-	color: #1ae191ff !important;
+.navbar {
+	background-color: #fff;
 }
 
-a:link {
+.navbar-nav {
+	font-family: 'Montserrat';
+	font-weight: 500;
+}
+
+.navbar-nav .nav-link {
+	color: #000 !important;
+	transition: color 0.1s ease-in;
+    transition-property: color;
+    transition-duration: 0.1s;
+    transition-timing-function: ease-in;
+    transition-delay: 0s;
+}
+
+.navbar-nav .nav-link:hover {
+	color: rgb(18, 196, 124) !important;
+}
+
+.navbar .nav-item > .nav-link.active  {
+    color: rgb(18, 196, 124) !important;
+}
+
+.card-body > a:link {
 	color: rgb(16, 168, 107);
 	background-color: transparent;
 	text-decoration: none;
 }
 
-a:hover {
+.card-body > a:hover {
 	color: rgb(13, 129, 83);
 	background-color: transparent;
 	text-decoration: none;
@@ -153,4 +175,81 @@ Predict Page
 
 .predict-card > .card-body > p{
 	font-size: 20px;
+}
+
+/* ======================================================
+
+Login / Register Page
+
+====================================================== */
+
+.register-card {
+	font-family: 'Montserrat';
+	margin-top: 4rem;
+	/* width: 55%; */
+	/* margin-left: 5rem;
+	margin-right: 20rem; */
+	border-radius: 20px !important;
+	padding: 2rem;
+	box-shadow: 0 10px 20px rgba(0,0,0,.1), 0 4px 8px rgba(0,0,0,.06);
+	/* position: absolute; */
+	/* top: 50%;
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%); */
+}
+
+.register-card .card-title {
+	padding-bottom: 2rem;
+}
+
+.register-card > .card-body > p{
+	font-size: 20px;
+}
+
+.user-card {
+	font-family: 'Montserrat';
+	margin-top: 7rem;
+	/* width: 55%; */
+	/* margin-left: 5rem;
+	margin-right: 20rem; */
+	border-radius: 20px !important;
+	padding: 2rem;
+	box-shadow: 0 10px 20px rgba(0,0,0,.1), 0 4px 8px rgba(0,0,0,.06);
+	/* position: absolute; */
+	/* top: 50%;
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%); */
+}
+
+.user-card .card-title {
+	padding-bottom: 2rem;
+}
+
+.user-card > .card-body > p{
+	font-size: 20px;
+}
+
+.form-group .auth-input {
+	height: 3rem;
+	font-family: 'Montserrat';
+	border-radius: 40px !important;
+}
+
+.form-group .auth-btn {
+	width: 10rem;
+	font-size: 20px;
+	background-color: rgb(18, 196, 124);
+	border: 0;
+	font-family: 'Montserrat';
+	font-weight: 600;
+	border-radius: 40px !important;
+	transition: all 0.5s ease;
+}
+
+.form-group .auth-btn:hover,
+.form-group .auth-btn:active,
+.form-group .auth-btn:focus {
+	background-color: #1ae191;
+	box-shadow: 0 5px 10px rgba(0,0,0,.1), 0 4px 8px rgba(0,0,0,.06);
+	transform: translateY(-3px);
 }

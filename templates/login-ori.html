@@ -2,7 +2,7 @@
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>History - Fake News Detector App</title>
+  <title>Login - Fake News Detector App</title>
   <link rel="shortcut icon" href="{{ url_for('static', filename='assets/square-favicon.png') }}" />
   <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
@@ -20,52 +20,28 @@
   
 </head>
 
-<body>
-  {% include 'includes/_navbar.html' %}
+<body style="background-color: #c3f5e1;">
 
-  <section>
-    <div class="jumbotron">
-      <div class="container">
-        <h1 class="page-title">History</h1>
-        <div class="line-break"></div>
-      </div>
-    </div>
-  </section>
-
-  <div class="container">
-    <!-- <h2>Welcome to your history</h2>
- 
-    <h3>Hi {{ session.username }}</h3>
-     
-    <a href="{{ url_for('logout')}}">Logout Here</a> -->
-    {% include 'includes/_messages.html' %}
-    {% if record %}
-      <table class="table">
-        <thead class="thead-dark" style="background-color: rgb(18, 196, 124);">
-          <tr>
-            <th scope="col" class="align-middle">No.</th>
-            <th scope="col" class="align-middle">History URL</th>
-            <th scope="col" class="align-middle">History Label</th>
-            <th scope="col" class="align-middle">Checked Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for his in history %}
-            <tr>
-              <th scope="row">{{ his.historyID }}</th>
-              <td><a href="{{ his.historyURL }}">{{ his.historyURL }}</a></td>
-              <td>{{ his.historyLabel }}</td>
-              <td>{{ his.historyDate }}</td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    {% else %}
-      <h3>History Not Found</h3>
-    {% endif %}
-  </div>
-
+    {% include 'includes/_navbar.html' %}
     
-  {% include 'includes/_footer.html' %}
+    <div class="container">
+        <div class="card" style="width: 40rem; margin-top: 20rem;">
+            <div class="card-body">
+                <form action="/login" method="POST">
+                    <h5 class="card-title"><strong>Login</strong></h5>
+                    {% include 'includes/_messages.html' %}
+                    <p>Email</p>
+                    <input type="email" class="form-control" name="email" value="{{ email }}" required><br>
+                    <p>Password</p>
+                    <input type="password" class="form-control" name="password" required><br>
+                    <small id="e_error" class="form-text text-muted text-center"><span class="text-danger">{{ msg }}</span></small>
+                    <button type="Submit" value="Login" class="btn btn-primary">Login</button><br><br>
+                    <p>Dont Have an account? <a href = "{{url_for('register') }}">Register Here</a></p>
+                </form>
+            </div>
+          </div>
+    </div>
+
+    {% include 'includes/_footer.html' %}
 </body>
 </html>

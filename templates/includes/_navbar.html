@@ -38,7 +38,7 @@
   </div>
 </nav> -->
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg">
   <a class="navbar-brand" href="{{url_for('main')}}"><img src="{{ url_for('static', filename='assets/logo-v2.png') }}" alt="" height="70px" width="127px"></a>
   
   <!-- <a class="navbar-brand" href="{{url_for('main')}}">Fake News Detector App</a> -->
@@ -47,11 +47,9 @@
   </button>
   <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
     <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="{{url_for('main')}}">Home <span class="sr-only">(current)</span></a>
+      <li class="nav-item">
+        <a class="nav-link active" href="{{url_for('main')}}">Home</a>
       </li>
-    </ul>
-    <ul class="navbar-nav navbar-right">
       {% if session.logged_in %}
           <li class="nav-item">
               <a class="nav-link" href="{{url_for('history') }}">History</a>
