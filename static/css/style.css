@@ -55,6 +55,14 @@ body {
     color: rgb(18, 196, 124) !important;
 }
 
+.nav-btn {
+	background: #1ae191;
+	border-radius: 20px;
+	color: #fff;
+	text-transform: uppercase;
+	transition: 0.3s;
+}
+
 .card-body > a:link {
 	color: rgb(16, 168, 107);
 	background-color: transparent;
@@ -75,18 +83,15 @@ body {
 	border-radius: 0 40px 40px 0 !important;
 }
 
-.input-group .predict-btn:hover {
-	background-color: #1AE191;
-	border: 0;
-}
-
-.input-group .predict-btn:active {
+.input-group .predict-btn:hover,
+.input-group .predict-btn:active,
+.input-group .predict-btn:focus {
 	background-color: #1AE191;
 	border: 0;
 }
 
 .input-group {
-	height: 50%;
+	height: 3rem;
 	transition: all 0.2s ease-out;
 }
 

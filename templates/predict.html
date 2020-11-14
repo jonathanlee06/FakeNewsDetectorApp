@@ -51,7 +51,11 @@
             <h4>Based on our classifier result</h4>
           </div>
           <div class="card-body">
-            <h1>This news is <strong style="color: #1ae191ff;">{{ prediction_text }}</strong></h1>
+            {% if prediction_text == 'True' %}
+              <h1>This news is <strong style="color: #1ae191ff;">{{ prediction_text }} ✅</strong></h1>
+            {% else %}
+              <h1>This news is <strong style="color: rgb(182, 24, 24);">{{ prediction_text }} ❌</strong></h1>
+            {% endif %}
           </div>
         </div>
     </div>
