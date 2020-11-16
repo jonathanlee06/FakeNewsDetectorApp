@@ -90,6 +90,7 @@ body {
 .input-group .predict-btn:focus {
 	background-color: #1AE191;
 	border: 0;
+	outline: none;
 }
 
 .input-group {
@@ -111,6 +112,11 @@ body {
 	border: 0;
 	padding: 1rem;
 	text-indent: 10px;
+}
+
+.input-group .url-box:focus,
+.input-group .url-box:active {
+	outline: none;
 }
 
 .form-group .url-box {
@@ -224,6 +230,14 @@ Predict Page
 Login / Register Page
 
 ====================================================== */
+
+.full-body {
+	height: 100vh;
+	background-image: url('../assets/user-back.jpg'); 
+	background-repeat: no-repeat;
+	background-position: center; 
+	background-size: cover;
+}
 
 .register-card {
 	font-family: 'Montserrat';
