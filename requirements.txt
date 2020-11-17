@@ -7,6 +7,7 @@ sklearn
 nltk
 matplotlib
 scikit-plot
+textblob
 
 flask-login
 flask-sqlalchemy

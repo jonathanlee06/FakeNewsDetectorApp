@@ -71,8 +71,10 @@
             {% else %}
               {% if prediction_text == 'True' %}
                 <h1>This news is <strong style="color: #1ae191ff; font-weight: 600;">{{ prediction_text }} ✅</strong></h1>
-              {% else %}
+              {% elif prediction_text == 'False' %}
                 <h1>This news is <strong style="color: rgb(182, 24, 24); font-weight: 600;">{{ prediction_text }} ❌</strong></h1>
+              {% else %}
+                <h1>{{ language_error }} ❌</strong></h1>
               {% endif %}
             {% endif %}
           </div>

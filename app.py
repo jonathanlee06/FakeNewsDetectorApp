@@ -7,6 +7,7 @@ from flask_login import login_required, current_user, login_user, logout_user
 from flask.logging import create_logger
 from flask_mysqldb import MySQL
 from functools import wraps
+from textblob import TextBlob
 # from urllib import 
 import MySQLdb.cursors
 import re
@@ -191,33 +192,47 @@ def predict():
         article = Article(str(url))
         article.download()
         article.parse()
-        article.nlp()
-        news_title = article.title
-        news = article.text
-        news_html = article.html
+        parsed = article.text
 
-        if article:
-            news_to_predict = pd.Series(np.array([news]))
-
-            cleaner = pickle.load(open('TfidfVectorizer-new.sav', 'rb'))
-            model = pickle.load(open('ClassifierModel-new.sav', 'rb'))
-
-            cleaned_text = cleaner.transform(news_to_predict)
-            pred = model.predict(cleaned_text)
-            pred_outcome = format(pred[0])
-            if (pred_outcome == "0"):
-                outcome = "True"
-            else:
-                if (pred_outcome == "REAL"):
-                    outcome = "True"
-                else:
-                    outcome = "False"
-
-            if 'logged_in' in session:
-                userID = session['id']
-                saveHistory(userID, url, outcome)
+        if parsed:
             
-            return render_template('predict.html', prediction_text=outcome, url_input=url, news=news)
+            b = TextBlob(parsed)
+            lang = b.detect_language()
+
+            if lang == "en":
+                article.nlp()
+                news_title = article.title
+                news = article.text
+                news_html = article.html
+
+                if news:
+                    news_to_predict = pd.Series(np.array([news]))
+
+                    cleaner = pickle.load(open('TfidfVectorizer-new.sav', 'rb'))
+                    model = pickle.load(open('ClassifierModel-new.sav', 'rb'))
+
+                    cleaned_text = cleaner.transform(news_to_predict)
+                    pred = model.predict(cleaned_text)
+                    pred_outcome = format(pred[0])
+                    if (pred_outcome == "0"):
+                        outcome = "True"
+                    else:
+                        if (pred_outcome == "REAL"):
+                            outcome = "True"
+                        else:
+                            outcome = "False"
+
+                    if 'logged_in' in session:
+                        userID = session['id']
+                        saveHistory(userID, url, outcome)
+                    
+                    return render_template('predict.html', prediction_text=outcome, url_input=url, news=news)
+                else:
+                    flash('Invalid URL! Please try again', 'danger')
+                    return redirect(url_for('main'))
+            else:
+                language_error = "We currently do not support this language"
+                return render_template('predict.html', language_error=language_error, url_input=url)
         else:
             flash('Invalid URL! Please try again', 'danger')
             return redirect(url_for('main'))
