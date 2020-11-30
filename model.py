@@ -23,7 +23,7 @@ text = news['text'].astype('U')
 label = news['label'].astype('U')
 
 # Splitting the dataset into test and train
-text_train, text_test, label_train, label_test = train_test_split(text, label, test_size=0.3, random_state=5)
+text_train, text_test, label_train, label_test = train_test_split(text, label, test_size=0.25, random_state=5)
 
 # Insert spliitted data into TfidfVectorizer and transform shape
 vectorizer = TfidfVectorizer(stop_words='english', max_df=0.7, lowercase=True)

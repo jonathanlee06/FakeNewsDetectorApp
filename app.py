@@ -21,7 +21,7 @@ from user_authentication import UserModel, loginManager, db
 # from db_config import mysql
 from werkzeug.security import generate_password_hash, check_password_hash
 import newspaper
-from newspaper import Article
+from newspaper import Article, Config
 # from urllib import request, urlopen, URLError, parse
 import urllib
 from newsapi import NewsApiClient 
@@ -85,26 +85,29 @@ def login_post():
         password = request.form.get('password')
         # user = UserModel.query.filter_by(email = email).first()
 
-        cursor = mysql.connection.cursor()
-        cursor.execute('SELECT * FROM users WHERE email LIKE %s', (email,)) 
-        account = cursor.fetchone()
+        try: 
+            cursor = mysql.connection.cursor()
+            cursor.execute('SELECT * FROM users WHERE email LIKE %s', (email,)) 
+            account = cursor.fetchone()
 
-        if account:
-            password_db = account['password_hash']
-            if check_password_hash(password_db,password):
-                session['logged_in'] = True
-                session['username'] = account['username']
-                session['id'] = account['id']
-                flash('You have successfully logged in!', 'success')
-                return redirect(url_for('main'))
+            if account:
+                password_db = account['password_hash']
+                if check_password_hash(password_db,password):
+                    session['logged_in'] = True
+                    session['username'] = account['username']
+                    session['id'] = account['id']
+                    flash('You have successfully logged in!', 'success')
+                    return redirect(url_for('main'))
+                else:
+                    flash('Wrong password! Please try again!', 'danger')
+                    return render_template('login.html', email=email)
+
+                cursor.close()
             else:
                 flash('Account with this email address does not exist! Please try again!', 'danger')
-                return render_template('login.html', email=email)
+        except:
+            flash('We are having trouble connecting to the database! Please try again later!', 'danger')
 
-            cursor.close()
-        else:
-            flash('Account with this email address does not exist! Please try again!', 'danger')
-     
     return redirect(url_for('login'))
 
 
@@ -127,9 +130,9 @@ def register():
 
         if account:
             flash('Email already exists!', 'danger')
-            return render_template('register.html', email=email, username=username)
+            return render_template('register.html', username=username)
         elif (len(password)<8): 
-            flash('Please use a stronger password', 'danger')
+            flash('Please use a stronger password (*Password must have at least 8 characters)', 'danger')
             return render_template('register.html', email=email, username=username)
         elif not username or not password or not email: 
             flash('Please fill out the form to register!', 'danger')
@@ -189,55 +192,64 @@ def predict():
     validate = validators.url(url)
 
     if validate == True:
-        article = Article(str(url))
-        article.download()
-        article.parse()
-        parsed = article.text
+        user_agent = request.headers.get('User-Agent')
+        config = Config()
+        config.browser_user_agent = user_agent
 
-        if parsed:
-            
-            b = TextBlob(parsed)
-            lang = b.detect_language()
+        try:
+            article = Article(str(url))
+            article.download()
+            article.parse()
+            parsed = article.text
 
-            if lang == "en":
-                article.nlp()
-                news_title = article.title
-                news = article.text
-                news_html = article.html
+            if parsed:
+                
+                b = TextBlob(parsed)
+                lang = b.detect_language()
 
-                if news:
-                    news_to_predict = pd.Series(np.array([news]))
+                if lang == "en":
+                    article.nlp()
+                    news_title = article.title
+                    news = article.text
+                    news_html = article.html
 
-                    cleaner = pickle.load(open('TfidfVectorizer-new.sav', 'rb'))
-                    model = pickle.load(open('ClassifierModel-new.sav', 'rb'))
+                    if news:
+                        news_to_predict = pd.Series(np.array([news]))
 
-                    cleaned_text = cleaner.transform(news_to_predict)
-                    pred = model.predict(cleaned_text)
-                    pred_outcome = format(pred[0])
-                    if (pred_outcome == "0"):
-                        outcome = "True"
-                    else:
-                        if (pred_outcome == "REAL"):
+                        cleaner = pickle.load(open('TfidfVectorizer-new.sav', 'rb'))
+                        model = pickle.load(open('ClassifierModel-new.sav', 'rb'))
+
+                        cleaned_text = cleaner.transform(news_to_predict)
+                        pred = model.predict(cleaned_text)
+                        pred_outcome = format(pred[0])
+                        if (pred_outcome == "0"):
                             outcome = "True"
                         else:
-                            outcome = "False"
+                            if (pred_outcome == "REAL"):
+                                outcome = "True"
+                            else:
+                                outcome = "False"
 
-                    if 'logged_in' in session:
-                        userID = session['id']
-                        saveHistory(userID, url, outcome)
-                    
-                    return render_template('predict.html', prediction_text=outcome, url_input=url, news=news)
+                        if 'logged_in' in session:
+                            userID = session['id']
+                            saveHistory(userID, url, outcome)
+                        
+                        return render_template('predict.html', prediction_text=outcome, url_input=url, news=news)
+                    else:
+                        flash('Invalid URL! Please try again', 'danger')
+                        return redirect(url_for('main'))
                 else:
-                    flash('Invalid URL! Please try again', 'danger')
-                    return redirect(url_for('main'))
+                    language_error = "We currently do not support this language"
+                    return render_template('predict.html', language_error=language_error, url_input=url)
             else:
-                language_error = "We currently do not support this language"
-                return render_template('predict.html', language_error=language_error, url_input=url)
-        else:
-            flash('Invalid URL! Please try again', 'danger')
+                flash('Invalid news article! Please try again', 'danger')
+                return redirect(url_for('main'))
+        except newspaper.article.ArticleException:
+            flash('We currently do not support this website! Please try again', 'danger')
             return redirect(url_for('main'))
+        
     else:
-        flash('Please enter an URL to predict', 'danger')
+        flash('Please enter a valid news stie URL', 'danger')
         return redirect(url_for('main'))
 
     return render_template('predict.html')
