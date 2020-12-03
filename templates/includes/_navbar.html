@@ -51,19 +51,22 @@
         <a class="nav-link active" href="{{url_for('main')}}">Home</a>
       </li>
       {% if session.logged_in %}
-          <li class="nav-item">
+          <!-- <li class="nav-item">
               <a class="nav-link" href="{{url_for('history') }}">History</a>
           </li>
           <li class="nav-item">
               <a class="nav-link" href="{{url_for('logout') }}">Logout</a>
-          </li>
+          </li> -->
       {% else %}
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="{{url_for('login') }}">Login</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{url_for('register') }}">Register</a>
-          </li>
+          </li> -->
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="{{url_for('main') }}">Quit</a>
+          </li> -->
       {% endif %}
     </ul>
   </div>

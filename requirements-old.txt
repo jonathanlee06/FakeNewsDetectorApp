@@ -1,0 +1,16 @@
+numpy
+pandas
+flask
+flask-cors
+newspaper3k
+sklearn
+nltk
+matplotlib
+scikit-plot
+textblob
+
+flask-login
+flask-sqlalchemy
+flask-mysqldb
+flask-wtf
+Werkzeug

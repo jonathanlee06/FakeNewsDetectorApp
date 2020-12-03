@@ -17,7 +17,7 @@ import pickle
 import flask
 import secrets
 import validators
-from user_authentication import UserModel, loginManager, db
+# from user_authentication import UserModel, loginManager, db
 # from db_config import mysql
 from werkzeug.security import generate_password_hash, check_password_hash
 import newspaper
