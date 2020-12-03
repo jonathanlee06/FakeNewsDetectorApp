@@ -1,7 +1,7 @@
 # CheckThis - Fake News Detector App
 <img src="static/assets/logo-v2.png"
      alt="CheckThis Logo"
-     style="width: 30%; height: 50%" />
+     style="width: 20%; height: 20%" />
 
 CheckThis is a Fake News Detection website developed by Jonathan Lee as part of the Final Year Project (FYP). The aim of this project is to create a simple web application to help ease the process of verifying the validity of a news article online
 
