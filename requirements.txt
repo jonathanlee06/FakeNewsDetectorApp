@@ -9,6 +9,7 @@ matplotlib
 scikit-plot
 textblob
 gunicorn
+validators
 
 flask-login
 flask-sqlalchemy
