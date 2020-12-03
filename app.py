@@ -49,8 +49,8 @@ log = create_logger(app)
 mysql = MySQL(app)
 #mysql.init_app(app)
 # db.init_app(app)
-loginManager.init_app(app)
-loginManager.login_view = 'login'
+# loginManager.init_app(app)
+# loginManager.login_view = 'login'
 
 # @app.before_first_request
 # def create_table():
@@ -262,5 +262,6 @@ def saveHistory(userID, url, outcome):
 
 
 if __name__=="__main__":
+    # port=int(process.env.PORT)
     port=int(os.environ.get('PORT',5000))
     app.run(port=port,debug=True,use_reloader=False)
