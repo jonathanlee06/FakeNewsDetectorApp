@@ -1,6 +1,7 @@
 env/*
 *.sqlite3
-.ipynb_checkpoints/*
+.ipynb_checkpoints/PassiveAggressiveClassifier-checkpoint.ipynb
+.ipynb_checkpoints/PassiveAggressiveClassifier-MalayDataset-checkpoint.ipynb
 .vscode/*
 __pycache__/*
 PassiveAggressiveClassifier.ipynb
