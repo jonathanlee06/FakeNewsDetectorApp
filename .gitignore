@@ -4,6 +4,10 @@ env/*
 .ipynb_checkpoints/PassiveAggressiveClassifier-MalayDataset-checkpoint.ipynb
 .vscode/*
 __pycache__/*
+templates/login-ori.html
+templates/login.html
+templates/register.html
+templates/history.html
 PassiveAggressiveClassifier.ipynb
 db_config.py
 ClassifierModel.sav
