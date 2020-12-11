@@ -1,5 +1,7 @@
-env/
+env/*
 *.sqlite3
-.ipynb_checkpoints/
-.vscode/
+.ipynb_checkpoints/*
+.vscode/*
+__pycache__/*
 *.ipynb
+db_config.py
