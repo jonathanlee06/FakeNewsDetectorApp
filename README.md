@@ -1,13 +1,17 @@
 # CheckThis - Fake News Detector App
 <img src="static/assets/logo-v2.png"
      alt="CheckThis Logo"
-     style="width: 20%; height: 20%" />
+     style="width: 10%; height: 10%" />
 
 CheckThis is a Fake News Detection website developed by Jonathan Lee as part of the Final Year Project (FYP). The aim of this project is to create a simple web application to help ease the process of verifying the validity of a news article online
 
-[Live Demo](https://fakenewsdetectorapp.herokuapp.com/)
+> Made with :heart: in Malaysia
 
-## :bulb: Overview
+Live Demo: [https://fakenewsdetectorapp.herokuapp.com/](https://fakenewsdetectorapp.herokuapp.com/)
+
+![Home Page](assets/homepage.png)
+
+## :bulb: Motivation
 With the rapid growing rate of information over the internet, the topic of fake news detection on social media has recently attracted tremendous attention. The basic countermeasure of comparing websites against a list of labeled fake news sources is inflexible, and so a machine learning approach is desirable. This project aims to use Natural Language Processing (NLP) and Passive Aggressive Classifier to detect fake news directly, based on the text content of news articles.
 
 ## :pencil2: Objectives
@@ -42,8 +46,9 @@ Further validation of model is done using `Fake.csv` & `True.csv`, which the fin
 
 ## :computer: Technology Stack
 1. Python
-2. Flask Framework
-3. HTML/CSS/JavaScript/Bootstrap
+2. Scikit-learn
+3. Flask Framework
+4. HTML/CSS/JavaScript/Bootstrap
 
 ## :books: Third-Party Libraries
 
@@ -51,13 +56,6 @@ Further validation of model is done using `Fake.csv` & `True.csv`, which the fin
 | :-------------                                                                    | :----------:                                        |
 |  [Newspaper3k](https://github.com/codelucas/newspaper)                            | To extract article text from URL                    |
 |  [NewsAPI](https://newsapi.org/)                                                  | To get the latest news of the day                   |
-
-## :camera: Screenshots
-- Homepage
-![Home Page](assets/homepage.png)
-
-- Predict Page
-![Predict Page](assets/predict.png)
 
 ## :octocat: Author
 [Jonathan Lee](https://github.com/jonathanlee06)
