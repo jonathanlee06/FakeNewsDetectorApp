@@ -5,3 +5,7 @@ env/*
 __pycache__/*
 *.ipynb
 db_config.py
+ClassifierModel.sav
+TfidfVectorizer.sav
+requirements-new.txt
+requirements-old.txt
