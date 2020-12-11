@@ -3,7 +3,7 @@ env/*
 .ipynb_checkpoints/*
 .vscode/*
 __pycache__/*
-*.ipynb
+PassiveAggressiveClassifier.ipynb
 db_config.py
 ClassifierModel.sav
 TfidfVectorizer.sav

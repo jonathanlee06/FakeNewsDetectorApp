@@ -33,12 +33,12 @@ Dataset Source:
 ## :dart: Model Training
 The Passive-Aggressive model is trained using `model.py` file and the model is stored in `ClassifierModel-new.sav` file. By using the dataset mentioned above, accuracy score is as below:
 
-Accuracy: **94.49%** (Using `scraped.csv` as both training and testing dataset)
+Accuracy: **94.20%** (Using `scraped.csv` as both training and testing dataset)
 
 Confusion Matrix:
 ![Confusion Matrix](assets/confusion-matrix.png)
 
-Further validation of model is done using `Fake.csv` & `True.csv`, which the final average accuracy score gotten is **72%**
+Further validation of model is done using `Fake.csv` & `True.csv`, which the final average accuracy score gotten is **69%**
 
 ## :computer: Technology Stack
 1. Python
