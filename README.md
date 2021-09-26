@@ -10,6 +10,7 @@ CheckThis is a Fake News Detection website developed by Jonathan Lee as part of 
 Live Demo: [https://fakenewsdetectorapp.herokuapp.com/](https://fakenewsdetectorapp.herokuapp.com/)
 
 ![Home Page](assets/homepage.png)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fjonathanlee06%2FFakeNewsDetectorApp.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fjonathanlee06%2FFakeNewsDetectorApp?ref=badge_shield)
 
 ## :bulb: Motivation
 With the rapid growing rate of information over the internet, the topic of fake news detection on social media has recently attracted tremendous attention. The basic countermeasure of comparing websites against a list of labeled fake news sources is inflexible, and so a machine learning approach is desirable. This project aims to use Natural Language Processing (NLP) and Passive Aggressive Classifier to detect fake news directly, based on the text content of news articles.
@@ -62,3 +63,6 @@ Further validation of model is done using `Fake.csv` & `True.csv`, which the fin
 
 ## :bookmark_tabs: Licenses
 This project is licensed under the MIT license. See the [LICENSE](https://github.com/jonathanlee06/FakeNewsDetectorApp/blob/master/LICENSE) file for more info.
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fjonathanlee06%2FFakeNewsDetectorApp.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fjonathanlee06%2FFakeNewsDetectorApp?ref=badge_large)
